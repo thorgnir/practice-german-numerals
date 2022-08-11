@@ -16,6 +16,7 @@ import { CheckIcon } from '@chakra-ui/icons';
 
 export const WordsToNumber = observer(() => {
   const { numbersStore } = useStore();
+  const internalRef = React.useRef<HTMLInputElement>(null);
 
   const handleKeyPress = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
@@ -25,6 +26,7 @@ export const WordsToNumber = observer(() => {
 
   const handleCheck = () => {
     numbersStore.checkCurrentNumber();
+    internalRef?.current?.focus();
   };
 
   function handleNumberChange(valueAsString: string) {
@@ -52,6 +54,8 @@ export const WordsToNumber = observer(() => {
           >
             <NumberInputField
               placeholder={`${numbersStore.currentRange.min} - ${numbersStore.currentRange.max}`}
+              autoFocus={true}
+              ref={internalRef}
             />
           </NumberInput>
           <IconButton
