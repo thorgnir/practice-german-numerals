@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/practice-german-numerals/static/css/main.31d6cfe0.css",
+    "main.js": "/practice-german-numerals/static/js/main.4913783f.js",
+    "index.html": "/practice-german-numerals/index.html",
+    "main.4913783f.js.map": "/practice-german-numerals/static/js/main.4913783f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.4913783f.js"
+  ]
+}
