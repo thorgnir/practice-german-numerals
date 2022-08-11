@@ -5,18 +5,18 @@ export interface NumbersRange {
 
 export enum NumberRangeType {
   ZeroToHundred,
-  ZeroToThousand,
-  ZeroToTenThousands,
-  ZeroToHundredThousands,
-  ZeroToMillion,
-  ZeroToBillion,
+  HundredToThousand,
+  ThousandToTenThousands,
+  TenThousandsToHundredThousands,
+  HundredThousandsToMillion,
+  MillionToBillion,
 }
 
 export const NumberRanges: Record<NumberRangeType, NumbersRange> = {
-  [NumberRangeType.ZeroToHundred]: { min: 0, max: 100 },
-  [NumberRangeType.ZeroToThousand]: { min: 0, max: 1000 },
-  [NumberRangeType.ZeroToTenThousands]: { min: 0, max: 10000 },
-  [NumberRangeType.ZeroToHundredThousands]: { min: 0, max: 100000 },
-  [NumberRangeType.ZeroToMillion]: { min: 0, max: 1000000 },
-  [NumberRangeType.ZeroToBillion]: { min: 0, max: 1000000000 },
+  [NumberRangeType.ZeroToHundred]: { min: 1, max: 99 },
+  [NumberRangeType.HundredToThousand]: { min: 100, max: 999 },
+  [NumberRangeType.ThousandToTenThousands]: { min: 1000, max: 9999 },
+  [NumberRangeType.TenThousandsToHundredThousands]: { min: 10000, max: 99999 },
+  [NumberRangeType.HundredThousandsToMillion]: { min: 100000, max: 999999 },
+  [NumberRangeType.MillionToBillion]: { min: 1000000, max: 999999999 },
 };

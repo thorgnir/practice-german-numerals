@@ -1,16 +1,18 @@
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../store';
+
+import React, { KeyboardEvent, useMemo } from 'react';
+
 import {
   Box,
-  Container,
+  HStack,
   IconButton,
-  TextField,
-  Typography,
-} from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-
-import React, { ChangeEvent, KeyboardEvent } from 'react';
-import { History } from '../History';
+  NumberInput,
+  NumberInputField,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+import { CheckIcon } from '@chakra-ui/icons';
 
 export const WordsToNumber = observer(() => {
   const { numbersStore } = useStore();
@@ -21,36 +23,44 @@ export const WordsToNumber = observer(() => {
     }
   };
 
-  const handleTextFieldChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    numbersStore.setCurrentInputValue(e.target.value);
-  };
-
   const handleCheck = () => {
     numbersStore.checkCurrentNumber();
   };
 
+  function handleNumberChange(valueAsString: string) {
+    numbersStore.setCurrentInputValue(valueAsString);
+  }
+
+  const focusBorderColor: string = useMemo(
+    () => (numbersStore.invalid ? 'red.500' : 'blue.500'),
+    [numbersStore.invalid]
+  );
+
   return (
-    <Container>
+    <VStack spacing={8}>
       <Box>
-        {/*{numbersStore.currentNumber}*/}
-        <br />
-        <Typography variant="h5" sx={{ wordWrap: 'break-word' }}>
-          {numbersStore.currentNumberAsText}
-        </Typography>
-        <TextField
-          type="number"
-          size="small"
-          onKeyDown={handleKeyPress}
-          onChange={handleTextFieldChange}
-          value={numbersStore.currentInputValue}
-        />
-        <IconButton onClick={handleCheck}>
-          <CheckIcon />
-        </IconButton>
+        <Text fontSize={'xl'}>{numbersStore.currentNumberAsText}</Text>
       </Box>
       <Box>
-        <History />
+        <HStack spacing={2}>
+          <NumberInput
+            onChange={handleNumberChange}
+            onKeyDown={handleKeyPress}
+            value={numbersStore.currentInputValue}
+            isInvalid={numbersStore.invalid}
+            focusBorderColor={focusBorderColor}
+          >
+            <NumberInputField
+              placeholder={`${numbersStore.currentRange.min} - ${numbersStore.currentRange.max}`}
+            />
+          </NumberInput>
+          <IconButton
+            aria-label={'Check'}
+            icon={<CheckIcon />}
+            onClick={handleCheck}
+          />
+        </HStack>
       </Box>
-    </Container>
+    </VStack>
   );
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 import { IHistoryItem } from '../../stores/history';
+import { Box, Text } from '@chakra-ui/react';
 
 interface Props {
   value: IHistoryItem;
@@ -7,8 +8,10 @@ interface Props {
 
 export const HistoryItem: React.FC<Props> = ({ value }) => {
   return (
-    <div>
-      {value.question} - {value.answer}
-    </div>
+    <Box>
+      <Text fontSize={'md'}>
+        {value.question} - {value.answer}
+      </Text>
+    </Box>
   );
 };

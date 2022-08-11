@@ -16,6 +16,7 @@ export class NumbersStore {
   currentNumberAsText = '';
   currentRange: NumbersRange = NumberRanges[NumberRangeType.ZeroToHundred];
   currentInputValue?: string;
+  invalid = false;
 
   constructor(private rootStore: RootStore) {
     makeAutoObservable(this, {});
@@ -24,6 +25,7 @@ export class NumbersStore {
 
   setRange(range: NumbersRange) {
     this.currentRange = range;
+    this.nextNumber();
   }
 
   nextNumber() {
@@ -34,10 +36,12 @@ export class NumbersStore {
 
   setCurrentInputValue(value: string) {
     this.currentInputValue = value;
+    this.invalid = false;
   }
 
   checkCurrentNumber() {
     if (this.currentInputValue === this.currentNumber.toString()) {
+      this.invalid = false;
       this.rootStore.historyStore.addHistoryItem({
         question: this.currentNumberAsText,
         answer: this.currentNumber.toString(),
@@ -46,6 +50,8 @@ export class NumbersStore {
       });
 
       this.nextNumber();
+    } else {
+      this.invalid = true;
     }
   }
 }

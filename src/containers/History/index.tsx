@@ -1,9 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../../store';
-import { Box, Stack } from '@mui/material';
 import { HistoryItem } from './HistoryItem';
 import { IHistoryItem } from '../../stores/history';
+import { Box, Stack } from '@chakra-ui/react';
 
 export const History = observer(() => {
   const { historyStore } = useStore();
